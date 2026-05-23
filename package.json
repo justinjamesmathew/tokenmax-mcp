@@ -1,0 +1,70 @@
+{
+  "name": "repo-context-mcp",
+  "version": "0.1.0",
+  "description": "MCP server + CLI that gives Claude Code a symbol-level view of your codebase(s). Cultivated context, not codebase dumps.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "codemap": "dist/cli-entry.js",
+    "repo-context-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "DECISIONS.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepack": "npm run typecheck && npm test && npm run build",
+    "prepublishOnly": "npm run prepack"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "fast-glob": "3.3.3",
+    "ignore": "7.0.5",
+    "tree-sitter-wasms": "0.1.13",
+    "web-tree-sitter": "0.22.6",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "tsup": "8.5.1",
+    "tsx": "4.20.3",
+    "typescript": "6.0.3",
+    "vitest": "4.1.7"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "claude-code",
+    "anthropic",
+    "tree-sitter",
+    "typescript",
+    "javascript",
+    "code-navigation",
+    "code-index",
+    "codemap",
+    "symbol-search",
+    "context-management",
+    "ai-coding"
+  ],
+  "author": "Justin James Mathew <justin.james.mathew@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinjamesmathew/repo-context-mcp.git"
+  },
+  "homepage": "https://github.com/justinjamesmathew/repo-context-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/justinjamesmathew/repo-context-mcp/issues"
+  }
+}

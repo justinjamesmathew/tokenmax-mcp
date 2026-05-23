@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-probe
+coverage
+*.log
+.DS_Store
+
+# Local dev artifacts
+.codemaps-demo
+*.tgz
+
