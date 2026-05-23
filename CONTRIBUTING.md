@@ -1,4 +1,4 @@
-# Contributing to repo-context-mcp
+# Contributing to tokenmax-mcp
 
 Thanks for your interest. This guide covers the dev loop, project layout, and how to propose changes.
 
@@ -7,8 +7,8 @@ Thanks for your interest. This guide covers the dev loop, project layout, and ho
 Requires Node 20+.
 
 ```bash
-git clone https://github.com/justinjamesmathew/repo-context-mcp.git
-cd repo-context-mcp
+git clone https://github.com/justinjamesmathew/tokenmax-mcp.git
+cd tokenmax-mcp
 npm install
 npm run typecheck     # tsc --noEmit
 npm test              # vitest run
@@ -18,7 +18,7 @@ npm run build         # tsup → dist/
 To iterate on a real session locally:
 
 ```bash
-npm link              # exposes `codemap` + `repo-context-mcp` on PATH
+npm link              # exposes `codemap` + `tokenmax-mcp` on PATH
 # then in some other repo:
 codemap init
 codemap register .
@@ -33,7 +33,7 @@ src/
   cli.ts              # CLI subcommand router
   codemap.ts          # CODEMAP.md generator
   discover.ts         # Repo auto-discovery
-  index.ts            # `repo-context-mcp` MCP bin entry
+  index.ts            # `tokenmax-mcp` MCP bin entry
   indexer.ts          # Filesystem walk + symbol indexing
   parser.ts           # tree-sitter wrapper, symbol extraction, CJS export detection
   paths.ts            # Workspace root resolution, path safety

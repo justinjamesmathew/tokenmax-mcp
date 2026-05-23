@@ -65,11 +65,11 @@ export async function startServer(): Promise<void> {
   const index = await buildIndex(root);
   const elapsed = Date.now() - startedAt;
   process.stderr.write(
-    `[repo-context-mcp] indexed ${index.files.size} files in ${elapsed}ms (root=${root})\n`,
+    `[tokenmax-mcp] indexed ${index.files.size} files in ${elapsed}ms (root=${root})\n`,
   );
 
   const mcp = new McpServer(
-    { name: "repo-context-mcp", version: "0.1.0" },
+    { name: "tokenmax-mcp", version: "0.1.0" },
     {
       capabilities: {
         tools: {},
@@ -249,7 +249,7 @@ async function registerCrossRepoTools(mcp: McpServer): Promise<void> {
     return;
   }
   process.stderr.write(
-    `[repo-context-mcp] registry has ${slugs.length} repo(s); cross-repo tools enabled\n`,
+    `[tokenmax-mcp] registry has ${slugs.length} repo(s); cross-repo tools enabled\n`,
   );
 
   mcp.registerTool(

@@ -1,6 +1,6 @@
 # Decision log
 
-Architectural and dependency choices for `repo-context-mcp`, with the reasoning so future-me can re-evaluate them.
+Architectural and dependency choices for `tokenmax-mcp`, with the reasoning so future-me can re-evaluate them.
 
 ---
 
@@ -9,7 +9,7 @@ Architectural and dependency choices for `repo-context-mcp`, with the reasoning 
 **Chosen:** `web-tree-sitter` (the WASM runtime) + prebuilt grammars from `tree-sitter-wasms`.
 **Rejected:** native Node bindings (`tree-sitter` + `tree-sitter-typescript` npm packages).
 
-**Why.** The package is meant to run via `npx -y repo-context-mcp` and be friction-free to add to Claude Code. The native binding requires `node-gyp` and a C++ toolchain at install time, and the published `tree-sitter-typescript` package ships only `.c` sources — every install would mean a compile step. WASM grammars are platform-independent and load in tens of milliseconds.
+**Why.** The package is meant to run via `npx -y tokenmax-mcp` and be friction-free to add to Claude Code. The native binding requires `node-gyp` and a C++ toolchain at install time, and the published `tree-sitter-typescript` package ships only `.c` sources — every install would mean a compile step. WASM grammars are platform-independent and load in tens of milliseconds.
 
 **Tradeoff.** WASM is a touch slower than native at parse time. On the 1000-file target this still finishes well under 10 s, so it doesn't matter for the MVP. If perf becomes an issue, prebuilt platform-specific binaries via `@napi-rs` or `node-pre-gyp` would be the next step.
 

@@ -1,12 +1,12 @@
 {
-  "name": "repo-context-mcp",
+  "name": "tokenmax-mcp",
   "version": "0.1.0",
   "description": "MCP server + CLI that gives Claude Code a symbol-level view of your codebase(s). Cultivated context, not codebase dumps.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
     "codemap": "dist/cli-entry.js",
-    "repo-context-mcp": "dist/index.js"
+    "tokenmax-mcp": "dist/index.js"
   },
   "files": [
     "dist",
@@ -61,10 +61,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justinjamesmathew/repo-context-mcp.git"
+    "url": "git+https://github.com/justinjamesmathew/tokenmax-mcp.git"
   },
-  "homepage": "https://github.com/justinjamesmathew/repo-context-mcp#readme",
+  "homepage": "https://github.com/justinjamesmathew/tokenmax-mcp#readme",
   "bugs": {
-    "url": "https://github.com/justinjamesmathew/repo-context-mcp/issues"
+    "url": "https://github.com/justinjamesmathew/tokenmax-mcp/issues"
   }
 }

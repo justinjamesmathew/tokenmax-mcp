@@ -1,9 +1,9 @@
-# repo-context-mcp
+# tokenmax-mcp
 
-[![npm version](https://img.shields.io/npm/v/repo-context-mcp.svg)](https://www.npmjs.com/package/repo-context-mcp)
-[![CI](https://github.com/justinjamesmathew/repo-context-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/justinjamesmathew/repo-context-mcp/actions/workflows/ci.yml)
-[![license](https://img.shields.io/npm/l/repo-context-mcp.svg)](LICENSE)
-[![node](https://img.shields.io/node/v/repo-context-mcp.svg)](https://nodejs.org)
+[![npm version](https://img.shields.io/npm/v/tokenmax-mcp.svg)](https://www.npmjs.com/package/tokenmax-mcp)
+[![CI](https://github.com/justinjamesmathew/tokenmax-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/justinjamesmathew/tokenmax-mcp/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/tokenmax-mcp.svg)](LICENSE)
+[![node](https://img.shields.io/node/v/tokenmax-mcp.svg)](https://nodejs.org)
 
 **Stop letting Claude Code re-read your entire codebase every session.**
 
@@ -46,19 +46,19 @@ Session 2 (after /compact):                          → reaches code directly.
 ## Install
 
 ```bash
-npm install -g repo-context-mcp
+npm install -g tokenmax-mcp
 ```
 
 Node 20+ required. Exposes two bins:
 
 - `codemap` — the CLI for managing your repo registry and codemaps
-- `repo-context-mcp` — the MCP server that Claude Code connects to
+- `tokenmax-mcp` — the MCP server that Claude Code connects to
 
 Verify:
 
 ```bash
 codemap help
-repo-context-mcp --help 2>&1 | head -1   # MCP servers don't have help, but should not crash
+tokenmax-mcp --help 2>&1 | head -1   # MCP servers don't have help, but should not crash
 ```
 
 ## 60-second setup (multi-repo, recommended)
@@ -81,10 +81,10 @@ codemap install-git-hook
 git config --global core.hooksPath ~/.codemaps/githooks
 
 # 5. Hook up the MCP so Claude can do JIT lookups in-session
-claude mcp add --scope user repo-context -- codemap mcp
+claude mcp add --scope user tokenmax -- codemap mcp
 ```
 
-Open Claude Code in any project, run `/mcp`, and you should see `repo-context` with 6 tools. From now on:
+Open Claude Code in any project, run `/mcp`, and you should see `tokenmax` with 6 tools. From now on:
 
 - Every session starts with the registry in context (all your repos, what each does, where each lives)
 - When Claude needs to look at a specific repo, it loads that repo's CODEMAP via the Read tool
@@ -98,7 +98,7 @@ If you just want the in-session MCP tools for one project — no registry, no gl
 
 ```bash
 cd /path/to/your/project
-claude mcp add repo-context -- npx -y repo-context-mcp
+claude mcp add tokenmax -- npx -y tokenmax-mcp
 ```
 
 Open Claude Code, run `/mcp`, you'll see 3 tools (`repo_map`, `read_section`, `find_symbol`) scoped to the current project. No `codemap init` required; no `~/.codemaps` created.
@@ -178,7 +178,7 @@ codemap help                        Show this help
 
 ### MCP tools
 
-When you register the MCP (`claude mcp add repo-context -- codemap mcp`), Claude Code gets these tools:
+When you register the MCP (`claude mcp add tokenmax -- codemap mcp`), Claude Code gets these tools:
 
 | Tool | Scope | When Claude uses it |
 |---|---|---|
@@ -285,8 +285,8 @@ Add that directory to your PATH (in `.zshrc`, `.bashrc`, etc.). On macOS with Ho
 
 Check `/mcp` inside Claude Code — failed servers show their stderr. Common causes:
 
-- `npx -y repo-context-mcp` fails because Node version is < 20. `node --version` should print v20+.
-- The package didn't install. Try `npm install -g repo-context-mcp` first, then `claude mcp add repo-context -- repo-context-mcp` (no `npx`).
+- `npx -y tokenmax-mcp` fails because Node version is < 20. `node --version` should print v20+.
+- The package didn't install. Try `npm install -g tokenmax-mcp` first, then `claude mcp add tokenmax -- tokenmax-mcp` (no `npx`).
 - Permission errors writing to `~/.codemaps`. Confirm the directory is writable.
 
 ### Codemap is too large (above 40 KB)
@@ -312,7 +312,7 @@ The grammars are pinned to a stable version (see [DECISIONS.md](DECISIONS.md) #2
 ### I want to uninstall everything
 
 ```bash
-npm uninstall -g repo-context-mcp
+npm uninstall -g tokenmax-mcp
 rm -rf ~/.codemaps
 # Manually remove the <!-- codemap-registry-start --> ... <!-- codemap-registry-end -->
 # block from ~/.claude/CLAUDE.md (or delete the file if it only had that)
@@ -368,8 +368,8 @@ PRs welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the dev loop, project la
 Quick start for contributors:
 
 ```bash
-git clone https://github.com/justinjamesmathew/repo-context-mcp.git
-cd repo-context-mcp
+git clone https://github.com/justinjamesmathew/tokenmax-mcp.git
+cd tokenmax-mcp
 npm install
 npm run typecheck
 npm test
