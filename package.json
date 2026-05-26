@@ -1,6 +1,6 @@
 {
   "name": "tokenmax-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server + CLI that gives Claude Code a symbol-level view of your codebase(s). Cultivated context, not codebase dumps.",
   "type": "module",
   "main": "dist/index.js",

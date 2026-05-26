@@ -69,7 +69,7 @@ export async function startServer(): Promise<void> {
   );
 
   const mcp = new McpServer(
-    { name: "tokenmax-mcp", version: "0.1.0" },
+    { name: "tokenmax-mcp", version: "0.1.1" },
     {
       capabilities: {
         tools: {},
@@ -217,6 +217,18 @@ export async function startServer(): Promise<void> {
 
   const transport = new StdioServerTransport();
   await mcp.connect(transport);
+
+  // `mcp.connect()` resolves once stdio handlers are wired up; it does NOT
+  // block. The CLI entry calls process.exit(code) as soon as runCli resolves,
+  // so without this wait the server would die before serving a single
+  // JSON-RPC message. Hold the event loop until the client disconnects.
+  await new Promise<void>((resolve) => {
+    const prev = transport.onclose;
+    transport.onclose = () => {
+      prev?.();
+      resolve();
+    };
+  });
 }
 
 const LIST_REPOS_DESC = `Return the cross-repo registry: every repo the user has registered with \`codemap\`, with its slug, path, purpose, tech, and codemap location.
