@@ -6,19 +6,41 @@
 
 **Stop Claude Code from re-reading your entire codebase every session.**
 
-If you've watched Claude grep around your project for 5 minutes before doing anything useful, or hit a context limit halfway through a real task, this is for you.
+## Why this exists
 
-After setup:
-- Claude knows your codebase structure the moment you open a session (no exploratory reads).
-- It works across multiple repos without you telling it where things live.
-- `/clear` and `/compact` don't reset that knowledge.
-- It reads only the symbols it actually needs, not whole files.
+Every new Claude Code session, every `/clear`, and every `/compact` makes Claude re-read large parts of your repo to figure out what's where. On a 220-file TypeScript project (~480k tokens of source), cold-start exploration burns 90k to 150k input tokens before any real work begins. Those tokens stay in context and get re-billed on every turn, so a 20-turn session pays for that orientation 20 times.
 
-Works with Claude Code (via MCP) and as a standalone CLI. TypeScript/JavaScript repos. MIT licensed.
+Tokenmax gives Claude a persistent, compressed map of your repos so it doesn't have to keep rediscovering them.
+
+## What you get
+
+|  | Without tokenmax | With tokenmax |
+|---|---|---|
+| Tokens read at session start | 90k to 150k (re-exploration) | ~200 (registry only) |
+| Per-repo context size | 480k (full source) | 14.4k (codemap), about 33x smaller |
+| Persists across `/clear` and `/compact` | No | Yes |
+| Cross-repo task routing | Manual repo hint needed | Auto-routed via registry |
+| Throughput on Claude Pro | baseline | ~7x on my workload |
+
+Numbers come from a real 220-file TypeScript project across several weeks of normal use. Not a synthetic benchmark.
+
+Works with Claude Code (via MCP) and as a standalone CLI. TypeScript and JavaScript repos. MIT licensed.
 
 ---
 
-## Get started — 5 steps, ~2 minutes
+## Get started: 5 steps, ~2 minutes
+
+If you just want the commands:
+
+```bash
+npm install -g tokenmax-mcp     # requires Node 20+
+codemap init                    # one-time setup
+codemap discover ~/projects     # register your repos
+codemap regen --all             # build the codemaps
+claude mcp add --scope user tokenmax -- codemap mcp
+```
+
+Or step by step, with a verify check after each:
 
 ### Step 1: Install
 
